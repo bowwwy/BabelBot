@@ -1,11 +1,11 @@
 from __future__ import unicode_literals, print_function, division
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import FrenchToEngModel as En
 import EngToFrenchModel as Fr
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/')
 def home():
     return render_template('index.html')
 
@@ -13,9 +13,18 @@ def home():
 def login():
     return render_template('login.html')
 
-
-@app.route('/translate', methods=['GET', 'POST'])
+@app.route('/translate')
 def translate():
+    return render_template('translate.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+
+@app.route('/translator', methods=['GET', 'POST'])
+def translator():
     sentence = request.form['text']
     opt = request.form['options']
     if opt == 'French':

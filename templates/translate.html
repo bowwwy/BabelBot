@@ -12,7 +12,7 @@
 <ul>
     <li style = "font-size: 20px"><a href="translate">Translate</a></li>   
     <li style = "font-size: 20px"><a href="login">Login</a></li>
-    <li style = "font-size: 20px"><a href="index">Home</a></li>
+    <li style = "font-size: 20px"><a href="/">Home</a></li>
     <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
 </ul>
 
@@ -29,12 +29,12 @@
 </div>
 </form>
 <div class="center-form">
-    <form class="translate-form" method = "POST" action="/translate" enctype="multipart/form-data">
+    <form class="translate-form" method = "POST" action="/translator" enctype="multipart/form-data">
         <div>
             <p class="input-text">Input Text:</p>
             <div style = "float: left; margin: 0px 50px">
 
-                <form>
+                
                 <textarea class="input-area" name="text" rows="13" cols="50" placeholder="Enter Text Here."
                  onfocus = "this.placeholder = ''" onblur="this.placeholder = ''">{{in_sentence}}</textarea>
             </div>
