@@ -21,7 +21,7 @@ class MyModel(nn.Module):
         # Define your model layers
         
 # Load the pre-trained model from .pth file
-model_path = 'fra_eng_model_7Max_128_32.pth'
+model_path = 'models/fra_eng_model_7Max_128_32.pth'
 device = torch.device('cpu')
 model = MyModel()
 state_dict = torch.load(model_path, map_location=device)
