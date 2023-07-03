@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- for bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <!-- font reference -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+
+    <title>Login</title>
+</head>
+<body style = "background-color: #18122B;">
+
+<ul>
+    <li style = "font-size: 20px"><a href="translate">Translate</a></li>
+    <li style = "font-size: 20px"><a href="index">Home</a></li>
+    <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
+</ul>
+
+<h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Login</h1>
+
+    <div class="center-form">
+        <form class="login-form">
+            <div class="container">
+                <input class="username" type="text" placeholder="Username" required>
+                <input class="password" type="password" placeholder="Password" required>
+            </div>
+            <div class="container-2">
+                <a href="#myModal" class="f-pass" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
+                <p class="d-account">Don't have an account? <a href="register.html" class="c-here">Click here.</a></p>
+                <button class="button-style" type="button">Submit</button>
+            </div>
+        </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <p class="text-style">Please enter your email to change your password.</p>
+          <input class="email" type="text" placeholder="Email Address" required>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="button-style" data-dismiss="modal">Close</button>
+          <button type="button" class="button-style">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+
+<style>
+
+    .text-style {
+        color: white;
+        font-family: 'Inter';
+    }
+
+    .modal-content {
+        background-color: #635985;
+    }
+
+    .button-style {
+        background-color: #2A2A2C;
+        color: #FFF;
+        font-family: Inter;
+        border: none;
+        padding: 10px 50px;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .d-account {
+        font-family: 'Inter';
+        font-size: 12px;
+    }
+
+    .f-pass, .c-here {
+        color: #BEAECA;
+        font-family: 'Inter';
+        font-size: 12px;
+    }
+
+    .username, .password {
+        padding: 10px 150px;
+    }
+
+    .email {
+        width: 100%;
+        padding: 10px 0px;
+    }
+
+    .username, .password, .email {
+        background-color: #443C68;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        border: none;
+    }
+
+    ::placeholder {
+        color: #D3D3D3;
+    }
+
+    .login-form {
+        background-color: #635985;
+        width: 700px;
+        height: 500px;
+        border-radius: 25px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .center-form, .login-form {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .container-2 {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        }
+
+    li {
+        float: right;
+        color: white;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        font-family: 'Inter';
+        text-align: center;
+        padding: 20px 50px;
+        text-decoration: none;
+    }
+
+</style>
+</html>

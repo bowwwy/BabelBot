@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- for bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <!-- font reference -->
+    <title>Translate</title>
+</head>
+<body style = "background-color: #18122B;">
+
+<ul>
+    <li style = "font-size: 20px"><a href="translate">Translate</a></li>   
+    <li style = "font-size: 20px"><a href="login">Login</a></li>
+    <li style = "font-size: 20px"><a href="index">Home</a></li>
+    <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
+</ul>
+
+<h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Translate</h1>
+
+<div style = "height: 120px;">
+    <div style = "float: left; padding: 1px 50px;">
+    <p class = "directions">Begin by selecting the language of the text you want to translate.</p>
+    <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
+    <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
+    </div>
+<form method ='POST'>
+    
+</div>
+</form>
+<div class="center-form">
+    <form class="translate-form" method = "POST" action="/translate" enctype="multipart/form-data">
+        <div>
+            <p class="input-text">Input Text:</p>
+            <div style = "float: left; margin: 0px 50px">
+
+                <form>
+                <textarea class="input-area" name="text" rows="13" cols="50" placeholder="Enter Text Here."
+                 onfocus = "this.placeholder = ''" onblur="this.placeholder = ''">{{in_sentence}}</textarea>
+            </div>
+        </div>
+        <div>
+            <p class="output-text">Output Text:</p>
+            <div class="output-area">
+                <p class="output-style" placeholder ="Translated Text">{{translated_text}}</p>
+            </div>
+        </div>
+        <div style = "float: center;">
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="English" checked>
+            <label class="form-check-label" for="inlineRadio1">English</label>
+            </div>
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="options" id="inlineRadio2" value="French">
+            <label class="form-check-label" for="inlineRadio2">French</label>
+            </div>
+        </div>
+        <div>
+            <button class="button-style" type="submit">Translate</button>
+        </div>
+
+
+    </form>
+</div>
+
+
+</body>
+
+<style>
+
+    .button-style {
+        background-color: #2A2A2C;
+        color: #FFF;
+        font-family: Inter;
+        border: none;
+        padding: 10px 50px;
+        text-align: center;
+        border-radius: 10px;
+        display: flex;
+        position: relative;
+        
+
+    }
+    .button:hover{background-color:rgb(17, 16, 17)}
+
+    ::placeholder{
+        color: white;
+        font-family: Inter;
+        font-size: 20px;
+        float: left;
+     
+        
+      }
+    .output-style {
+        color: #FFF;
+        font-size: 15px;
+        font-family: Inter;
+    }
+
+
+    .output-area {
+        background-color: #635985;
+        height: 320px;
+        width: 400px;
+        border-radius: 10px;
+        padding: 5px 5px;
+    }
+
+    .input-area {
+        color: #FFF;
+        background-color: #635985;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        resize: none;
+        
+    }
+
+    .input-text, .output-text {
+        color: #FFF;
+        font-size: 20px;
+        font-family: Inter;
+    }
+
+    .input-text {
+        float: left;
+        margin: 50px 50px;
+    }
+
+    .output-text {
+         margin: 50px 0px;
+    }
+
+    .center-form {
+        justify-content: center;
+        display: flex;
+        margin: 40px 50px;
+    }
+
+    .translate-form {
+        display: grid;
+        grid-template-columns: 500px 1fr;
+        justify-items: center;
+        width: 1000px;
+        height: 530px;
+        background-color: #443C68;
+        border-radius: 25px;
+
+    }
+
+    .form-check-input {
+        padding: 10px 10px;
+    }
+
+    .form-check-label {
+        color: #FFF;
+        font-size: 20px;
+        font-family: Inter;
+        padding: 0px 10px;
+    }
+
+    .directions {
+        color: #FFF;
+        font-size: 12px;
+        font-family: Inter;
+        font-weight: bold;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        }
+
+    li {
+        float: right;
+        color: white;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        font-family: 'Inter';
+        text-align: center;
+        padding: 20px 50px;
+        text-decoration: none;
+}
+
+</style>
+</html>
