@@ -5,8 +5,6 @@ import re
 import pyrebase as db
 import FrenchToEngModel as En
 import EngToFrenchModel as Fr
-app = Flask(__name__)
-
 
 config = {
        'apiKey': "AIzaSyCpd8DgcbgF49ZaZAkeGAZp40hHQrLh1bo",
@@ -20,10 +18,12 @@ config = {
 
 }
 
+app = Flask(__name__)
+
 firebase = db.initialize_app(config)
 auth = firebase.auth()
 
-def check_user_logged_in():
+def islogged_in():
     if 'user_id' in session:
         return True
     else:
@@ -32,7 +32,8 @@ def check_user_logged_in():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    logged_in = islogged_in()
+    return render_template('index.html', logged_in = logged_in)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -42,7 +43,7 @@ def login():
         try:
             login = auth.sign_in_with_email_and_password(email, password)
             session['user_id'] = login['idToken']
-            return render_template('index.html')
+            return redirect(url_for('home'))
         except:
             print('invalid')
             error = "Invalid email or Password"
@@ -111,7 +112,12 @@ def translator():
     except KeyError:
        # Edit this and make it as a pop up form 
        return render_template('translate.html')
-    
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -16,12 +16,19 @@
     <title>Home</title>
 </head>
 <body style = "background-color: #18122B;">
-
+{%if logged_in%}
 <ul>
-    <li style = "font-size: 20px"><a href="translate">Translate</a></li>
-    <li style = "font-size: 20px"><a href="login">Login</a></li>
+    <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
+    <li style = "font-size: 20px"><a href="{{url_for('login')}}">logout</a></li>
     <li style = "float: left; font-size: 50px; font-weight: 700;"><a>BabelBot</a></li>
 </ul>
+{% else %}
+<ul>
+    <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
+    <li style = "font-size: 20px"><a href="{{url_for('login')}}">Login</a></li>
+    <li style = "float: left; font-size: 50px; font-weight: 700;"><a>BabelBot</a></li>
+</ul>
+{% endif %}
 
 <div style = "height: 120px; color:#FFF;">
     <div style = "float: left; padding: 1px 50px;">
