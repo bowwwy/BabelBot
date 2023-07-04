@@ -18,10 +18,12 @@ config = {
 
 }
 
-app = Flask(__name__)
-
 firebase = db.initialize_app(config)
 auth = firebase.auth()
+
+app = Flask(__name__)
+
+
 
 def islogged_in():
     if 'user_id' in session:
