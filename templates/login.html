@@ -18,22 +18,22 @@
 <body style = "background-color: #18122B;">
 
 <ul>
-    <li style = "font-size: 20px"><a href="translate">Translate</a></li>
-    <li style = "font-size: 20px"><a href="/">Home</a></li>
+    <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
+    <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
     <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
 </ul>
 
 <h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Login</h1>
 
     <div class="center-form">
-        <form class="login-form" method = "POST" actiom = "/login">
+        <form class="login-form" method = "POST" actiom = "{{url_for('login')}}">
             <div class="container">
-                <input name = "email" class="user" type="text" placeholder="Email" required>
+                <input name = "email" class="user" type="text" autocomplete="off" placeholder="Email" required>
                 <input name = "password"class="pass" type="password" placeholder="Password" required>
             </div>
             <div class="container-2">
                 <a href="#myModal" class="f-pass" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
-                <p class="d-account">Don't have an account? <a href="register" class="c-here">Click here.</a></p>
+                <p class="d-account">Don't have an account? <a href="{{url_for('register')}}" class="c-here">Click here.</a></p>
                 <button class="button-style" type="submit">Submit</button>
             </div>
         </form>
