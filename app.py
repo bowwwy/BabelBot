@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function, division
 from flask import Flask, render_template, request, redirect, url_for,session
-from cryptography.fernet import Fernet
+
 from requests.exceptions import HTTPError
 import re
 import pyrebase as db
@@ -9,14 +9,16 @@ import EngToFrenchModel as Fr
 app = Flask(__name__)
 
 
-config = {"apiKey": "AIzaSyDkiF2t9twh5qfFMziliS7b9nI6pX2c_ag",
-          "authDomain": "babelbot-f8aaf.firebaseapp.com",
-          "databaseURL": "https://babelbot-f8aaf-default-rtdb.asia-southeast1.firebasedatabase.app",
-          "projectId": "babelbot-f8aaf",
-          "storageBucket": "babelbot-f8aaf.appspot.com",
-          "messagingSenderId": "761927119070",
-          "appId": "1:761927119070:web:fb8be847d84d3d58f8524f",
-          "measurementId": "G-ZEDQLD365N"
+config = {
+       'apiKey': "AIzaSyCpd8DgcbgF49ZaZAkeGAZp40hHQrLh1bo",
+       'authDomain': "babelbot-9969d.firebaseapp.com",
+       'databaseURL': "https://babelbot-9969d-default-rtdb.asia-southeast1.firebasedatabase.app/",
+       'projectId': "babelbot-9969d",
+       'storageBucket': "babelbot-9969d.appspot.com",
+       'messagingSenderId': "889837798586",
+       'appId': "1:889837798586:web:1a5488c0b58ec752e4ee83",
+       'measurementId': "G-5K2G1RGTT6"
+
 }
 
 firebase = db.initialize_app(config)
@@ -29,8 +31,7 @@ def check_user_logged_in():
         return False
 
 
-key = Fernet.generate_key()
-fernet = Fernet(key)
+
 
 
 @app.route('/')
@@ -52,14 +53,14 @@ def login():
 def translate():
     return render_template('translate.html')
 
-@app.route('/register', methods = ['GET', 'POST'])
+@app.route('/register', methods = ['GET','POST'])
 def register():
     if request.method == 'POST':
         email = request.form.get('email')
         username = request.form.get('uname')
         password = request.form.get('psw')
         c_password = request.form.get('cpsw')
-        enc_pass = fernet.encrypt(password.encode(), c_password.encode())
+    
         
         if not username or not email or not password or not c_password:
             error = "please fill in all the required fields."
@@ -69,26 +70,24 @@ def register():
 
         if not re.match(email_pattern, email):
             error = 'Invalid email format.'
-            #
             #return render_template('register_screen.html', error=error) implement in front-end
-            return render_template('register_screen.html')
+            return render_template('register.html')
 
         password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
 
         if not re.match(password_pattern, password):
             error = 'Password should contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.'
             #return render_template('register_screen.html', error=error) implement front end
-            return render_template('register_screen.html')
+            return render_template('register.html')
         try:
-            user = auth.create_user_with_email_and_password(username, password)
-            return render_template('login')
+            user = auth.create_user_with_email_and_password(email, password)
         except HTTPError as e:
             if e.response is not None and e.response.content:
                 error = e.response.json()['error']['message']
             else:
                 error = 'An error occurred during registration.'
             #return render_template('register.html', error=error) implement modal
-            return render_template('register.html', error=error)
+            return render_template('register', error=error)
 
     return render_template('register.html')
 
