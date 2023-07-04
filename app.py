@@ -66,21 +66,21 @@ def register():
     
         
         if not username or not email or not password or not c_password:
-            error = "please fill in all the required fields."
-            #return render_template('register.html', error = error) implement this when modal is added in html
+            error = "Please fill in all the required fields."
+            return render_template('register.html', error = error) implement this when modal is added in html
             return render_template('register.html')
         email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
         if not re.match(email_pattern, email):
             error = 'Invalid email format.'
-            #return render_template('register_screen.html', error=error) implement in front-end
+            return render_template('register_screen.html', error=error) implement in front-end
             return render_template('register.html')
 
         password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
 
         if not re.match(password_pattern, password):
             error = 'Password should contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.'
-            #return render_template('register_screen.html', error=error) implement front end
+            return render_template('register_screen.html', error=error) implement front end
             return render_template('register.html')
         try:
             user = auth.create_user_with_email_and_password(email, password)
@@ -89,8 +89,7 @@ def register():
                 error = e.response.json()['error']['message']
             else:
                 error = 'An error occurred during registration.'
-            #return render_template('register.html', error=error) implement modal
-            return render_template('register', error=error)
+            return render_template('register.html', error=error)
 
     return render_template('register.html')
 
