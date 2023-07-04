@@ -1,6 +1,5 @@
 from __future__ import unicode_literals, print_function, division
 from flask import Flask, render_template, request, redirect, url_for,session
-
 from requests.exceptions import HTTPError
 import re
 import pyrebase as db
@@ -31,9 +30,6 @@ def check_user_logged_in():
         return False
 
 
-
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -41,11 +37,17 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
-        
-        
-        
+        try:
+            login = auth.sign_in_with_email_and_password(email, password)
+            session['user_id'] = login['idToken']
+            return render_template('index.html')
+        except:
+            print('invalid')
+            error = "Invalid email or Password"
+        #    return render_template('login.html', error = error)
+            return render_template('login.html')
 
     return render_template('login.html')
 
@@ -114,14 +116,3 @@ def translator():
 if __name__ == '__main__':
     app.run(debug=True)
     
-'''    if request.form['options'] == 'French':
-        fra_sentence = request.form['text']
-        fra_sentence = Fr.normalizeStringFra(fra_sentence)
-        output_words, _ = Fr.evaluateToFra(Fr.encoderEng, Fr.decoderFra, fra_sentence, Fr.input_lang_eng, Fr.output_lang_fra)
-        output_sentence = ' '.join(output_words)
-    
-    #fra_sentence = En.normalizeString(fra_sentence)
-    #output_words, _ = En.evaluateEng(En.encoder, En.decoder, fra_sentence, En.input_lang, En.output_lang)
-    #output_sentence = ' '.join(output_words)
-    
-    return render_template('translate.html', fran_sentence = fra_sentence, translated_text = output_sentence )'''

@@ -26,15 +26,15 @@
 <h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Login</h1>
 
     <div class="center-form">
-        <form class="login-form">
+        <form class="login-form" method = "POST" actiom = "/login">
             <div class="container">
-                <input name = "username"class="user" type="text" placeholder="Username" required>
+                <input name = "email" class="user" type="text" placeholder="Email" required>
                 <input name = "password"class="pass" type="password" placeholder="Password" required>
             </div>
             <div class="container-2">
                 <a href="#myModal" class="f-pass" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
                 <p class="d-account">Don't have an account? <a href="register" class="c-here">Click here.</a></p>
-                <button class="button-style" type="button">Submit</button>
+                <button class="button-style" type="submit">Submit</button>
             </div>
         </form>
     </div>
@@ -107,7 +107,7 @@
         padding: 10px 0px;
     }
 
-    .username, .password, .email {
+    .user, .pass, .email {
         background-color: #443C68;
         color: white;
         text-align: center;
