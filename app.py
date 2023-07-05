@@ -118,6 +118,9 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('home'))
 
+@app.route('/MyAccount')
+def MyAccount():
+    return render_template('myAccount.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
