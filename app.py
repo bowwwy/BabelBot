@@ -18,12 +18,18 @@ config = {
 
 }
 
+
 firebase = db.initialize_app(config)
 auth = firebase.auth()
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
+emailz = "test@gmail.com"
+paz = '123456'
 
+#uzer = auth.create_user_with_email_and_password(emailz, paz)
 
+#print(uzer)
 
 def islogged_in():
     if 'user_id' in session:
@@ -47,27 +53,23 @@ def login():
             session['user_id'] = login['idToken']
             return redirect(url_for('home'))
         except:
-            print('invalid')
             error = "Invalid email or Password"
+            print(error)
         #    return render_template('login.html', error = error)
             return render_template('login.html')
 
     return render_template('login.html')
 
-@app.route('/translate')
-def translate():
-    return render_template('translate.html')
-
 @app.route('/register', methods = ['GET','POST'])
 def register():
     if request.method == 'POST':
         email = request.form.get('email')
-        username = request.form.get('uname')
-        password = request.form.get('psw')
-        c_password = request.form.get('cpsw')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        c_password = request.form.get('confirm password')
     
         
-        if not username or not email or not password or not c_password:
+        if not username:
             error = "please fill in all the required fields."
             #return render_template('register.html', error = error) implement this when modal is added in html
             return render_template('register.html')
@@ -95,6 +97,13 @@ def register():
             return render_template('register', error=error)
 
     return render_template('register.html')
+
+
+@app.route('/translate')
+def translate():
+    return render_template('translate.html')
+
+
 
 
 

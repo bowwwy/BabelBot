@@ -26,10 +26,10 @@
 <h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Login</h1>
 
     <div class="center-form">
-        <form class="login-form" method = "POST" actiom = "{{url_for('login')}}">
+        <form class="login-form" method = "POST" action = "{{url_for('login')}}">
             <div class="container">
-                <input name = "email" class="user" type="text" autocomplete="off" placeholder="Email" required>
-                <input name = "password"class="pass" type="password" placeholder="Password" required>
+                <input  type = "email" name = "email" class="email"  autocomplete="off" placeholder="Email" required>
+                <input type = "password" name = "password" class="pass"  placeholder="Password" required>
             </div>
             <div class="container-2">
                 <a href="#myModal" class="f-pass" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
@@ -98,11 +98,11 @@
         font-size: 12px;
     }
 
-    .user, .pass {
+    .email, .pass {
         padding: 10px 150px;
     }
 
-    .email {
+    .user {
         width: 100%;
         padding: 10px 0px;
     }
