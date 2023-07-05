@@ -47,10 +47,9 @@ def login():
             session['user_id'] = login['idToken']
             return redirect(url_for('home'))
         except:
-            error = "Invalid email or Password"
-            print(error)
-        #    return render_template('login.html', error = error)
-            return render_template('login.html')
+            error = "Invalid email or Password"        
+            return render_template('login.html', error = error)
+            
 
     return render_template('login.html')
 
@@ -70,14 +69,14 @@ def register():
 
         if not re.match(email_pattern, email):
             error = 'Invalid email format.'
-            return render_template('register_screen.html', error=error)
+            return render_template('register.html', error=error)
             
 
         password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
 
         if not re.match(password_pattern, password):
             error = 'Password should contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.'
-            return render_template('register_screen.html', error=error)
+            return render_template('register', error=error)
             
         try:
             user = auth.create_user_with_email_and_password(email, password)
@@ -86,21 +85,19 @@ def register():
                 error = e.response.json()['error']['message']
             else:
                 error = 'An error occurred during registration.'
-            return render_template('register', error=error)
+            return render_template('register.htm', error=error)
 
     return render_template('register.html')
 
 
 @app.route('/translate')
 def translate():
-    return render_template('translate.html')
-
-
-
+    logged_in = islogged_in()
+    return render_template('translate.html', logged_in = logged_in)
 
 
 @app.route('/translator', methods=['GET', 'POST'])
-def translator():
+def translator():   
     try:
         sentence = request.form['text']
         opt = request.form['options']
