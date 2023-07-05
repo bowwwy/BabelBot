@@ -24,12 +24,6 @@ auth = firebase.auth()
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
-emailz = "test@gmail.com"
-paz = '123456'
-
-#uzer = auth.create_user_with_email_and_password(emailz, paz)
-
-#print(uzer)
 
 def islogged_in():
     if 'user_id' in session:
@@ -71,21 +65,20 @@ def register():
         
         if not username:
             error = "please fill in all the required fields."
-            #return render_template('register.html', error = error) implement this when modal is added in html
-            return render_template('register.html')
+            return render_template('register.html', error = error)         
         email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
         if not re.match(email_pattern, email):
             error = 'Invalid email format.'
-            #return render_template('register_screen.html', error=error) implement in front-end
-            return render_template('register.html')
+            return render_template('register_screen.html', error=error)
+            
 
         password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
 
         if not re.match(password_pattern, password):
             error = 'Password should contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.'
-            #return render_template('register_screen.html', error=error) implement front end
-            return render_template('register.html')
+            return render_template('register_screen.html', error=error)
+            
         try:
             user = auth.create_user_with_email_and_password(email, password)
         except HTTPError as e:
@@ -93,7 +86,6 @@ def register():
                 error = e.response.json()['error']['message']
             else:
                 error = 'An error occurred during registration.'
-            #return render_template('register.html', error=error) implement modal
             return render_template('register', error=error)
 
     return render_template('register.html')
