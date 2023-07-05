@@ -7,24 +7,31 @@ import FrenchToEngModel as En
 import EngToFrenchModel as Fr
 
 config = {
-       'apiKey': "AIzaSyCpd8DgcbgF49ZaZAkeGAZp40hHQrLh1bo",
-       'authDomain': "babelbot-9969d.firebaseapp.com",
-       'databaseURL': "https://babelbot-9969d-default-rtdb.asia-southeast1.firebasedatabase.app/",
-       'projectId': "babelbot-9969d",
-       'storageBucket': "babelbot-9969d.appspot.com",
-       'messagingSenderId': "889837798586",
-       'appId': "1:889837798586:web:1a5488c0b58ec752e4ee83",
-       'measurementId': "G-5K2G1RGTT6"
+        'apiKey': "AIzaSyAB0Do6OyYPsuOCNSUo6ine2_V8mj-4cPk",
+        'authDomain': "babelbotproject.firebaseapp.com",
+        'projectId': "babelbotproject",
+        'databaseURL': "https://babelbotproject-default-rtdb.firebaseio.com/",
+        'storageBucket': "babelbotproject.appspot.com",
+        'messagingSenderId': "753751078666",
+        'appId': "1:753751078666:web:cc781cf09272afbf662cf3",
+        'measurementId': "G-BVSNY6BJNM"
 
 }
 
 
 firebase = db.initialize_app(config)
+database = firebase.database()
 auth = firebase.auth()
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
+def saveTrans():
+    if 'user_id' in session == True:
+        if request.method == 'POST':
+            sentence = request.form['text']
+            opt = request.form['options']
+        return render_template('myAccount.html')
 def islogged_in():
     if 'user_id' in session:
         return True
@@ -85,7 +92,7 @@ def register():
                 error = e.response.json()['error']['message']
             else:
                 error = 'An error occurred during registration.'
-            return render_template('register.htm', error=error)
+            return render_template('register.html', error=error)
 
     return render_template('register.html')
 
@@ -97,7 +104,8 @@ def translate():
 
 
 @app.route('/translator', methods=['GET', 'POST'])
-def translator():   
+def translator():
+    logged_in = islogged_in()   
     try:
         sentence = request.form['text']
         opt = request.form['options']
@@ -107,8 +115,14 @@ def translator():
         elif opt == 'English':
             sentence = En.normalizeString(sentence)
             output_words, _ = En.evaluateEng(En.encoder, En.decoder, sentence, En.input_lang, En.output_lang)
-        output_sentence = ' '.join(output_words)
-        return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence)
+        output_sentence = ' '.join(output_words)  
+        if logged_in == True:         
+            msg = 'succesfully save'
+            data = {"Translation" : output_sentence}
+            database.child('Translation').child('user_id').set(data)
+            return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg)     
+        else:
+            return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in)
     except KeyError:
        # Edit this and make it as a pop up form 
        return render_template('translate.html')

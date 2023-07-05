@@ -65,7 +65,12 @@
         <div>
             <button class="button-style" type="submit">Translate</button>
         </div>
-
+        {%if msg%}    
+            <div id="errorMsg" class="alert alert-danger" role="alert">{{msg}}</div>
+        {%endif%}
+        {%if error%}
+            <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
+        {%endif%}
 
     </form>
 </div>
