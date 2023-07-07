@@ -1,6 +1,8 @@
 from __future__ import unicode_literals, print_function, division
 from flask import Flask, render_template, request, redirect, url_for,session
 from requests.exceptions import HTTPError
+import firebase_admin as data
+from firebase_admin import credentials
 import re
 import pyrebase as db
 import FrenchToEngModel as En
@@ -18,13 +20,14 @@ config = {
 
 }
 
+cred = credentials.Certificate("path/to/serviceAccountKey.json")
+data.initialize_app(cred)
 
 firebase = db.initialize_app(config)
 database = firebase.database()
 auth = firebase.auth()
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
 
 def saveTrans():
     if 'user_id' in session == True:
@@ -87,6 +90,7 @@ def register():
             
         try:
             user = auth.create_user_with_email_and_password(email, password)
+            
         except HTTPError as e:
             if e.response is not None and e.response.content:
                 error = e.response.json()['error']['message']
