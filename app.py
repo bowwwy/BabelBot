@@ -83,7 +83,7 @@ def register():
 
         if not re.match(password_pattern, password):
             error = 'Password should contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.'
-            return render_template('register', error=error)
+            return render_template('register.html', error=error)
             
         try:
             user = auth.create_user_with_email_and_password(email, password)
