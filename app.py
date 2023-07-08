@@ -4,6 +4,10 @@ from flask import session
 from requests.exceptions import HTTPError
 import re
 import pyrebase as db
+from datetime import datetime as dt
+import firebase_admin as db2
+from firebase_admin import credentials, firestore
+from firebase_admin import auth as auth2
 import FrenchToEngModel as En
 import EngToFrenchModel as Fr
 
@@ -16,9 +20,13 @@ config = {
     'messagingSenderId': "806132109246",
     'appId': "1:806132109246:web:522344effcc1feb85333ef",
     'measurementId': "G-F3QXZ06HEL"
-
 }
 
+
+
+cred = credentials.Certificate("Babelbot.json")
+db2.initialize_app(cred)
+fs = firestore.client()
 
 firebase = db.initialize_app(config)
 auth = firebase.auth()
@@ -38,6 +46,7 @@ def home():
     logged_in = islogged_in()
     return render_template('index.html', logged_in = logged_in)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -46,6 +55,12 @@ def login():
         try:
             login = auth.sign_in_with_email_and_password(email, password)
             session['user_id'] = login['idToken']
+            data = {"Email": email, "Password": password}
+            user = auth2.get_user_by_email(email)
+            uid = user.uid
+            fs.collection("Users").document(uid).set(data)
+            session['user_uid'] = uid
+            session['pass'] = password
             return redirect(url_for('home'))
         except:
             error = "Invalid email or Password"        
@@ -80,8 +95,7 @@ def register():
             return render_template('register.html', error=error)
             
         try:
-            user = auth.create_user_with_email_and_password(email, password)
-            
+            user = auth.create_user_with_email_and_password(email, password)     
         except HTTPError as e:
             if e.response is not None and e.response.content:
                 error = e.response.json()['error']['message']
@@ -111,9 +125,17 @@ def translator():
             sentence = En.normalizeString(sentence)
             output_words, _ = En.evaluateEng(En.encoder, En.decoder, sentence, En.input_lang, En.output_lang)
         output_sentence = ' '.join(output_words)  
-        if logged_in == True:         
-            msg = 'succesfully save'
-            data = {"Translation" : output_sentence}
+        if logged_in == True:
+            uid = session['user_uid']         
+            msg = 'Translation Saved!'
+            time = dt.now().strftime("%I:%M:%S_%p_%m_%d_%Y")
+            data = {
+                "Input Text": sentence,
+                "Translation" : output_sentence,
+                "Time": time
+                }
+            #userid = auth.current_user['localId'] if auth.current_user is not None and 'localId' in auth.current_user else None
+            fs.collection("Users").document(uid).collection('Translation').document(time).set(data)
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg)     
         else:
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in)
@@ -124,6 +146,8 @@ def translator():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
+    session.pop('user_uid', None)
+    session.pop('pass', None)
     return redirect(url_for('home'))
 
 @app.route('/MyAccount')
