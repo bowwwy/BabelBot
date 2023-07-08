@@ -53,6 +53,13 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+        forgot_email = request.form.get('forgot.email')
+        
+        if forgot_email is not None:
+            req = auth.send_password_reset_email(forgot_email)
+            error = 'Check your Email to reset your password'
+            return render_template('login.html', error = error)
+            
         try:
             login = auth.sign_in_with_email_and_password(email, password)
             session['user_id'] = login['idToken']
@@ -145,32 +152,44 @@ def translator():
                 "Time": time
                 }
             fs.collection("Users").document(uid).collection('Translation').document(time).set(data)
-            return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg)     
+            return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg) 
         else:
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in)
     except KeyError:
-       # Edit this and make it as a pop up form 
-       return render_template('translate.html')
+       error = 'Translation Text does not exists in dictionary'
+       return render_template('translate.html', error = error)
 
-@app.route('/logout')
-def logout():
-    session.pop('user_id', None)
-    session.pop('user_uid', None)
-    session.pop('email', None)
-    session.pop('pass', None)
-    return redirect(url_for('home'))
 
-@app.route('/MyAccount')
+
+@app.route('/MyAccount', methods=['GET','POST'])
 def MyAccount():
     uid = session['user_uid']
     data_ref = fs.collection('Users').document(uid)
     data = data_ref.get()
     if data.exists:
         email = data.to_dict()['Email']
-        password = data.to_dict()['Password']
         username = data.to_dict()['Username']
-    return render_template('myAccount.html', email = email, password = password, username = username)
-
+        password = data.to_dict()['Password']
+    history_ref = fs.collection('Users').document(uid).collection('Translation')
+    history = history_ref.limit(10).get()
+    documents = []
+    for doc in history:
+        document_data = doc.to_dict()
+        documents.append(document_data)
+    if request.method == "POST":
+        req = auth.send_password_reset_email(email)
+        msg = 'Please Check your email for password Reset'
+        return render_template('myAccount.html', email = email, password = password, username = username, documents=documents, msg = msg)
+    else:
+        return render_template('myAccount.html', email = email, password = password, username = username, documents=documents)
+    
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    session.pop('user_uid', None)
+    session.pop('email', None)
+    session.pop('pass', None)
+    return redirect(url_for('home'))    
 if __name__ == '__main__':
     app.run(debug=True)
     
