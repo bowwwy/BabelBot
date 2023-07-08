@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask import session
 from requests.exceptions import HTTPError
 import re
+import time
 import pyrebase as db
 from datetime import datetime as dt
 import firebase_admin as db2
@@ -58,7 +59,7 @@ def login():
             data = {"Email": email, "Password": password}
             user = auth2.get_user_by_email(email)
             uid = user.uid
-            fs.collection("Users").document(uid).set(data)
+            fs.collection("Users").document(uid).update(data)
             session['user_uid'] = uid
             session['email'] = email
             session['pass'] = password
@@ -77,7 +78,7 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         c_password = request.form.get('confirm password')
-    
+
         
         if not username:
             error = "please fill in all the required fields."
@@ -96,7 +97,15 @@ def register():
             return render_template('register.html', error=error)
             
         try:
-            user = auth.create_user_with_email_and_password(email, password)     
+            user = auth.create_user_with_email_and_password(email, password)
+            login = auth.sign_in_with_email_and_password(email, password)
+            session['user_id'] = login['idToken']
+            user = auth2.get_user_by_email(email)
+            data = {"Username": username}
+            uid = user.uid
+            fs.collection("Users").document(uid).set(data)
+            time.sleep(10)
+            session.pop('user_id', None)
         except HTTPError as e:
             if e.response is not None and e.response.content:
                 error = e.response.json()['error']['message']
@@ -153,9 +162,14 @@ def logout():
 
 @app.route('/MyAccount')
 def MyAccount():
-    
-    
-    return render_template('myAccount.html')
+    uid = session['user_uid']
+    data_ref = fs.collection('Users').document(uid)
+    data = data_ref.get()
+    if data.exists:
+        email = data.to_dict()['Email']
+        password = data.to_dict()['Password']
+        username = data.to_dict()['Username']
+    return render_template('myAccount.html', email = email, password = password, username = username)
 
 if __name__ == '__main__':
     app.run(debug=True)
