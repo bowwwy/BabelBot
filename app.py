@@ -60,6 +60,7 @@ def login():
             uid = user.uid
             fs.collection("Users").document(uid).set(data)
             session['user_uid'] = uid
+            session['email'] = email
             session['pass'] = password
             return redirect(url_for('home'))
         except:
@@ -134,7 +135,6 @@ def translator():
                 "Translation" : output_sentence,
                 "Time": time
                 }
-            #userid = auth.current_user['localId'] if auth.current_user is not None and 'localId' in auth.current_user else None
             fs.collection("Users").document(uid).collection('Translation').document(time).set(data)
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg)     
         else:
@@ -147,11 +147,14 @@ def translator():
 def logout():
     session.pop('user_id', None)
     session.pop('user_uid', None)
+    session.pop('email', None)
     session.pop('pass', None)
     return redirect(url_for('home'))
 
 @app.route('/MyAccount')
 def MyAccount():
+    
+    
     return render_template('myAccount.html')
 
 if __name__ == '__main__':
