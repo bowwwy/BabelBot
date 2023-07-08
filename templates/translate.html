@@ -25,14 +25,25 @@
 {% endif %}
 <h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Translate</h1>
 
+{% if logged_in%}
+
 <div style = "height: 120px;">
     <div style = "float: left; padding: 1px 50px;">
-    <p class = "directions">Begin by selecting the language of the text you want to translate.</p>
+    <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
     <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
     <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
+    <p class = "directions">Your translation will be saved automatically and can be seen in My Account Page.</p>
     </div>
 <form method ='POST'>
-    
+    {%else%}
+    <div style = "height: 120px;">
+        <div style = "float: left; padding: 1px 50px;">
+        <p class = "directions">Begin by selecting the outpuit language of the text you want to translate.</p>
+        <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
+        <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
+        </div>
+    <form method ='POST'>
+    {%endif%}
 </div>
 </form>
 <div class="center-form">

@@ -1,47 +1,38 @@
 from __future__ import unicode_literals, print_function, division
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for
+from flask import session
 from requests.exceptions import HTTPError
-import firebase_admin as data
-from firebase_admin import credentials
 import re
 import pyrebase as db
 import FrenchToEngModel as En
 import EngToFrenchModel as Fr
 
 config = {
-        'apiKey': "AIzaSyAB0Do6OyYPsuOCNSUo6ine2_V8mj-4cPk",
-        'authDomain': "babelbotproject.firebaseapp.com",
-        'projectId': "babelbotproject",
-        'databaseURL': "https://babelbotproject-default-rtdb.firebaseio.com/",
-        'storageBucket': "babelbotproject.appspot.com",
-        'messagingSenderId': "753751078666",
-        'appId': "1:753751078666:web:cc781cf09272afbf662cf3",
-        'measurementId': "G-BVSNY6BJNM"
+    'apiKey': "AIzaSyAgAnCqieYXOtQoYNlZNxtupjRs8E7TI98",
+    'authDomain': "babelbot-35cef.firebaseapp.com",
+    'databaseURL':"https://babelbot-35cef-default-rtdb.firebaseio.com/",
+    'projectId': "babelbot-35cef",
+    'storageBucket': "babelbot-35cef.appspot.com",
+    'messagingSenderId': "806132109246",
+    'appId': "1:806132109246:web:522344effcc1feb85333ef",
+    'measurementId': "G-F3QXZ06HEL"
 
 }
 
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
-data.initialize_app(cred)
 
 firebase = db.initialize_app(config)
-database = firebase.database()
 auth = firebase.auth()
-
 app = Flask(__name__)
 
-def saveTrans():
-    if 'user_id' in session == True:
-        if request.method == 'POST':
-            sentence = request.form['text']
-            opt = request.form['options']
-        return render_template('myAccount.html')
+#required for session login do not delete ffs
+app.secret_key = 'secret'
+
 def islogged_in():
     if 'user_id' in session:
         return True
     else:
         return False
-
-
+    
 @app.route('/')
 def home():
     logged_in = islogged_in()
@@ -123,7 +114,6 @@ def translator():
         if logged_in == True:         
             msg = 'succesfully save'
             data = {"Translation" : output_sentence}
-            database.child('Translation').child('user_id').set(data)
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in, msg = msg)     
         else:
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in)
