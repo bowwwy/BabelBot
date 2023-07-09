@@ -155,7 +155,7 @@ def translator():
         else:
             return render_template('translate.html', in_sentence = sentence, translated_text = output_sentence, logged_in = logged_in)
     except KeyError:
-       error = 'Translation Text does not exists in dictionary'
+       error = 'Translation text does not exist in dictionary.'
        return render_template('translate.html', error = error, logged_in=logged_in)
 
 

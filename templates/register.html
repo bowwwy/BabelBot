@@ -5,10 +5,17 @@
     <!-- for bootstrap -->
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <!-- font reference -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body style = "background-color: #18122B; overflow: scroll">
+
+        {%if error%}
+        <div id="alert" class="alert alert-danger" role="alert">{{error}}</div>
+        {%endif%}
 
 <ul>
     <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
@@ -20,25 +27,24 @@
 
     <div class="center-form">
         <form class="register-form" method = "POST" action="/register">
-            <div class="container">
-                <input class="email" type="text" 
-                placeholder="Email" name="email"  required>
-                <input class="username" type="text" 
-                placeholder="Username" name="username" required>
-                <input class="password" type="password" 
-                placeholder="Enter Password" name="password" required>
-                <input class="c-password" type="password" 
-                placeholder="Confirm Password" name="confirm password" required>
-            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;">
+                <div class="container">
+                    <input class="email" type="text"
+                    placeholder="Email" name="email" required>
+                    <input class="username" type="text"
+                    placeholder="Username" name="username" required>
+                    <input class="password" type="password"
+                    placeholder="Enter Password" name="password" required>
+                    <input class="c-password" type="password"
+                    placeholder="Confirm Password" name="confirm password" required>
+                </div>
             <div>
-                    <p class="c-account">By creating an account you agree to our <span class="t-priv">Terms & Privacy</span>.</p>
+                <p class="c-account">By creating an account you agree to our <span class="t-priv">Terms & Privacy</span>.</p>
             </div>
                 <button class="button-style" type="submit">Submit</button>
+            </div>
         </form>
         </div>
-        {%if error%}
-        <div id="alert" class="alert alert-danger" role="alert">{{error}}</div>
-        {%endif%}
 
         <div>
             <div class="wave"></div>
@@ -46,6 +52,12 @@
             <div class="wave"></div>
         </div>
 </body>
+
+<script type="text/javascript">
+    setTimeout(function () {
+           $('#alert').alert('close');
+    }, 2000);
+</script>
 
 <style>
 
@@ -148,7 +160,7 @@
         color: white;
         text-align: center;
         height: 40px;
-        width: 80%;
+        width: 50%;
         border-radius: 5px;
         border: none;
     }
@@ -160,6 +172,7 @@
     .container {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         gap: 10px;
     }
@@ -186,7 +199,7 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        }
+    }
 
     li {
         float: right;

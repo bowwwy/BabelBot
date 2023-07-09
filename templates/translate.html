@@ -5,9 +5,25 @@
     <!-- for bootstrap -->
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <!-- font reference -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rTDNEpUTHQoQUJMHLrErGJyHg89uy71MyuHH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Translate</title>
 </head>
 <body style = "background-color: #18122B; overflow: scroll;">
+
+    <div style="display: flex; flex-direction: column;">
+        {%if msg%}
+            <div id="alertMsg" class="alert alert-success" role="alert">{{msg}}</div>
+        {%endif%}
+        {%if error%}
+            <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
+        {%endif%}
+    </div>
+
     {% if logged_in %}
     <ul>
         <li style = "font-size: 20px"><a href="{{url_for('logout')}}">Logout</a></li>
@@ -28,7 +44,7 @@
     {% if logged_in%}
 
     <div style="display: flex; flex-direction: column; gap: 10px;">
-        <div style = "display: flex; flex-direction: column; padding-left: 50px;">
+        <div style = "display: flex; flex-direction: column; padding-left: 60px;">
         <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
         <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
         <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
@@ -36,7 +52,7 @@
         </div>
         <form method ='POST'>
         {%else%}
-        <div style = "display: flex; flex-direction: column; padding-left: 50px;">
+        <div style = "display: flex; flex-direction: column; padding-left: 60px;">
             <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
             <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
             <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
@@ -49,7 +65,7 @@
             <div style="display: flex; flex-direction: row; justify-content: space-evenly; gap: 20px;">
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <p class="input-text">Input Text:</p>
-                    <textarea class="input-area" name="text" rows="13" cols="50" placeholder="Enter Text Here."
+                    <textarea class="input-area" name="text" placeholder="Enter Text Here."
                      onfocus = "this.placeholder = ''" onblur="this.placeholder = ''">{{in_sentence}}</textarea>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -74,22 +90,24 @@
             </div>
         </form>
         </div>
-        <div style="display: flex; flex-direction: column;">
-            {%if msg%}
-                <div id="errorMsg1" class="alert alert-danger" role="alert">{{msg}}</div>
-            {%endif%}
-            {%if error%}
-                <div id="errorMsg2" class="alert alert-danger" role="alert">{{error}}</div>
-            {%endif%}
-        </div>
 
         <div>
             <div class="wave"></div>
             <div class="wave"></div>
             <div class="wave"></div>
         </div>
-
+    </div>
 </body>
+
+<script type="text/javascript">
+    setTimeout(function () {
+           $('#alertMsg').alert('close');
+    }, 2000);
+
+    setTimeout(function () {
+           $('#errorMsg').alert('close');
+    }, 2000);
+</script>
 
 <style>
 
@@ -205,6 +223,8 @@
     .input-area {
         color: #FFF;
         background-color: #635985;
+        height: 320px;
+        width: 400px;
         border-radius: 5px;
         outline: none;
         border: none;

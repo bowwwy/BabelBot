@@ -17,6 +17,12 @@
 </head>
 <body>
 
+    <div>
+        {%if error%}
+        <div id="alert" class="alert alert-danger" role="alert">{{error}}</div>
+        {%endif%}
+    </div>
+
 <ul>
     <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
     <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
@@ -65,12 +71,6 @@
   </div>
 </div>
 
-    <div>
-        {%if error%}
-        <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
-        {%endif%}
-    </div>
-
 <div>
     <div class="wave"></div>
     <div class="wave"></div>
@@ -78,6 +78,12 @@
 </div>
 
 </body>
+
+<script type="text/javascript">
+    setTimeout(function () {
+           $('#alert').alert('close');
+    }, 2000);
+</script>
 
 <style>
 
