@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+            <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
                 <div>
                     <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="English" checked>
                     <label class="form-check-label" for="inlineRadio1">English</label>
@@ -68,19 +68,19 @@
                     <label class="form-check-label" for="inlineRadio2">French</label>
                     </div>
                 </div>
-                <button class="button-style" type="submit">Translate</button>
+                <div>
+                    <button class="button-style" type="submit">Translate</button>
+                </div>
             </div>
         </form>
         </div>
         <div style="display: flex; flex-direction: column;">
-            <!--
             {%if msg%}
-                <div id="errorMsg" class="alert alert-danger" role="alert">{{msg}}</div>
+                <div id="errorMsg1" class="alert alert-danger" role="alert">{{msg}}</div>
             {%endif%}
             {%if error%}
-                <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
+                <div id="errorMsg2" class="alert alert-danger" role="alert">{{error}}</div>
             {%endif%}
-            -->
         </div>
 </body>
 
@@ -96,12 +96,10 @@
         color: #FFF;
         font-family: Inter;
         border: none;
-        padding: 10px 50px;
         text-align: center;
+        height: 50px;
+        width: 160px;
         border-radius: 10px;
-        display: flex;
-        position: relative;
-
     }
     .button:hover{background-color:rgb(17, 16, 17)}
 
@@ -123,14 +121,14 @@
         background-color: #635985;
         height: 320px;
         width: 400px;
-        border-radius: 10px;
+        border-radius: 5px;
         padding: 5px 5px;
     }
 
     .input-area {
         color: #FFF;
         background-color: #635985;
-        border-radius: 10px;
+        border-radius: 5px;
         outline: none;
         border: none;
         resize: none;
@@ -159,7 +157,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        gap: 30px;
+        gap: 10px;
         width: 1000px;
         height: 530px;
         background-color: #443C68;
