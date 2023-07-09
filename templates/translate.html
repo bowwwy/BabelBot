@@ -7,89 +7,89 @@
     <!-- font reference -->
     <title>Translate</title>
 </head>
-<body style = "background-color: #18122B;">
-{% if logged_in %}
-<ul>
-    <li style = "font-size: 20px"><a href="{{url_for('logout')}}">Logout</a></li>
-    <li style = "font-size: 20px"><a href="{{url_for('MyAccount')}}">My Account</a></li>     
-    <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
-    <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
-</ul>
-{% else %}
-<ul>
-    <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>   
-    <li style = "font-size: 20px"><a href="{{url_for('login')}}">Login</a></li>
-    <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
-    <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
-</ul>
-{% endif %}
-<h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding: 1px 50px;">Translate</h1>
+<body style = "background-color: #18122B; overflow: scroll;">
+    {% if logged_in %}
+    <ul>
+        <li style = "font-size: 20px"><a href="{{url_for('logout')}}">Logout</a></li>
+        <li style = "font-size: 20px"><a href="{{url_for('MyAccount')}}">My Account</a></li>
+        <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
+        <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
+    </ul>
+    {% else %}
+    <ul>
+        <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
+        <li style = "font-size: 20px"><a href="{{url_for('login')}}">Login</a></li>
+        <li style = "font-size: 20px"><a href="{{url_for('home')}}">Home</a></li>
+        <li style = "float: left; font-size: 30px; font-weight: 700;"><a>BabelBot</a></li>
+    </ul>
+    {% endif %}
+    <h1 style = "color: #FFF; font-size: 50px; font-family: Inter; font-weight: bold; padding-left: 50px;">Translate</h1>
 
-{% if logged_in%}
+    {% if logged_in%}
 
-<div style = "height: 120px;">
-    <div style = "float: left; padding: 1px 50px;">
-    <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
-    <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
-    <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
-    <p class = "directions">Your translation will be saved automatically and can be seen in My Account Page.</p>
-    </div>
-<form method ='POST'>
-    {%else%}
-    <div style = "height: 120px;">
-        <div style = "float: left; padding: 1px 50px;">
-        <p class = "directions">Begin by selecting the outpuit language of the text you want to translate.</p>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style = "display: flex; flex-direction: column; padding-left: 50px;">
+        <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
         <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
         <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
+        <p class = "directions">Your translation will be saved automatically and can be seen in My Account Page.</p>
         </div>
-    <form method ='POST'>
-    {%endif%}
-</div>
-</form>
-<div class="center-form">
-    <form class="translate-form" method = "POST" action="/translator" enctype="multipart/form-data">
-        <div>
-            <p class="input-text">Input Text:</p>
-            <div style = "float: left; margin: 0px 50px">
-
-                
-                <textarea class="input-area" name="text" rows="13" cols="50" placeholder="Enter Text Here."
-                 onfocus = "this.placeholder = ''" onblur="this.placeholder = ''">{{in_sentence}}</textarea>
-            </div>
+        <form method ='POST'>
+        {%else%}
+        <div style = "display: flex; flex-direction: column; padding-left: 50px;">
+            <p class = "directions">Begin by selecting the output language of the text you want to translate.</p>
+            <p class = "directions">Click on the input text field and type or paste the text you want to translate.</p>
+            <p class = "directions">Once you have entered the text, click on the "Translate" button.</p>
         </div>
-        <div>
-            <p class="output-text">Output Text:</p>
-            <div class="output-area">
-                <p class="output-style" placeholder ="Translated Text">{{translated_text}}</p>
-            </div>
-        </div>
-        <div style = "float: center;">
-            <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="English" checked>
-            <label class="form-check-label" for="inlineRadio1">English</label>
-            </div>
-            <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="options" id="inlineRadio2" value="French">
-            <label class="form-check-label" for="inlineRadio2">French</label>
-            </div>
-        </div>
-        <div>
-            <button class="button-style" type="submit">Translate</button>
-        </div>
-        {%if msg%}    
-            <div id="errorMsg" class="alert alert-danger" role="alert">{{msg}}</div>
         {%endif%}
-        {%if error%}
-            <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
-        {%endif%}
+        </form>
 
-    </form>
-</div>
-
-
+        <div class="center-form">
+        <form class="translate-form" method = "POST" action="/translator" enctype="multipart/form-data">
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly; gap: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <p class="input-text">Input Text:</p>
+                    <textarea class="input-area" name="text" rows="13" cols="50" placeholder="Enter Text Here."
+                     onfocus = "this.placeholder = ''" onblur="this.placeholder = ''">{{in_sentence}}</textarea>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <p class="output-text">Output Text:</p>
+                    <div class="output-area">
+                        <p class="output-style" placeholder ="Translated Text">{{translated_text}}</p>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+                <div>
+                    <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="English" checked>
+                    <label class="form-check-label" for="inlineRadio1">English</label>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="options" id="inlineRadio2" value="French">
+                    <label class="form-check-label" for="inlineRadio2">French</label>
+                    </div>
+                </div>
+                <button class="button-style" type="submit">Translate</button>
+            </div>
+        </form>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <!--
+            {%if msg%}
+                <div id="errorMsg" class="alert alert-danger" role="alert">{{msg}}</div>
+            {%endif%}
+            {%if error%}
+                <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
+            {%endif%}
+            -->
+        </div>
 </body>
 
 <style>
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 
     .button-style {
         background-color: #2A2A2C;
@@ -101,7 +101,6 @@
         border-radius: 10px;
         display: flex;
         position: relative;
-        
 
     }
     .button:hover{background-color:rgb(17, 16, 17)}
@@ -111,15 +110,14 @@
         font-family: Inter;
         font-size: 20px;
         float: left;
-     
-        
-      }
+
+    }
+
     .output-style {
         color: #FFF;
         font-size: 15px;
         font-family: Inter;
     }
-
 
     .output-area {
         background-color: #635985;
@@ -147,23 +145,21 @@
 
     .input-text {
         float: left;
-        margin: 50px 50px;
     }
 
     .output-text {
-         margin: 50px 0px;
     }
 
     .center-form {
-        justify-content: center;
         display: flex;
-        margin: 40px 50px;
+        justify-content: center;
     }
 
     .translate-form {
-        display: grid;
-        grid-template-columns: 500px 1fr;
-        justify-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 30px;
         width: 1000px;
         height: 530px;
         background-color: #443C68;

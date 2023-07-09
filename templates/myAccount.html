@@ -15,7 +15,7 @@
 
     <title>My Account</title>
 </head>
-<body style = "background-color: #18122B;">
+<body style = "background-color: #18122B; overflow: scroll;">
 
 <div style="display: flex; flex-direction: column; gap: 50px">
 
@@ -32,34 +32,42 @@
     <div class="center-form">
     <form class="acct-form" method = 'POST' action = '/MyAccount'>
         <div class="container">
-            <p style="color: #FFF; font-size: 25px; font-family: Inter;">Account Details</p>
-            <div style="display: flex; flex-direction: column; gap: 40px;">
+            <p style="color: #FFF; font-size: 20px; font-family: Inter;">Account Details</p>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
                 <!-- prevent modification of the input’s value -->
                 <!-- change placeholder to actual text -->
-                        <!--palagyan ng label tnx-->
-                <input class="email" type="text" placeholder={{email}} readonly>    
-                <input class="username" type="text" placeholder={{username}} readonly>
-                <input class="password" type="password" id="passID" value={{passsword}} readonly>
-                <button class="button-style" type="submit">Reset Password</button>
+                <div>
+                    <p style="color: #FFF; font-size: 15px; font-family: Inter;">Email</p>
+                    <input class="email" type="text" placeholder={{email}} readonly>
+                </div>
+                <div>
+                    <p style="color: #FFF; font-size: 15px; font-family: Inter;">Username</p>
+                    <input class="username" type="text" placeholder={{username}} readonly>
+                </div>
+                <div>
+                    <p style="color: #FFF; font-size: 15px; font-family: Inter;">Password</p>
+                    <input class="password" type="password" id="passID" value={{passsword}} readonly>
+                </div>
+                <button id="reset" class="button-style" type="submit">Reset Password</button>
                 {%if msg%}    
                 <div id="errorMsg" class="alert alert-danger" role="alert">{{msg}}</div>
                 {%endif%}
-
-            </div>
+                </div>
         </div>
 
     </form>
     <div class="tran-form">
         <div class="container-2">
-            <h2 class="text-center" style="color: #FFF; font-size: 25px; font-family: Inter;">History</h2>
-            <div class="d-flex justify-content-center">
-                <div class="btn-group">
-                    {% for document in documents %}
-                    <button>{{ document['Input Text'] }}</button>
-                    <button>{{ document['Translation'] }}</button>
-                    {% endfor %}
-                
-                </div>
+            <h2 class="text-center" style="color: #FFF; font-size: 20px; font-family: Inter;"> Translation History</h2>
+            <div style="display: flex; flex-direction: row; gap: 100px;">
+                <p style="color: #FFF; font-size: 15px; font-family: Inter;">Input Text</p>
+                <p style="color: #FFF; font-size: 15px; font-family: Inter;">Output Text</p>
+            </div>
+            <div class="btn-group">
+                {% for document in documents %}
+                <button>{{ document['Input Text'] }}</button>
+                <button>{{ document['Translation'] }}</button>
+                        {% endfor %}
             </div>
         </div>
     </div>
@@ -70,6 +78,11 @@
     document.getElementById("passID").readOnly = true;
 </script>
 <style>
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 
     .email, .username, .password {
         background-color: #635985;
@@ -89,15 +102,14 @@
         display: flex;
         flex-direction: column;
         padding-left: 50px;
-        gap: 50px;
+        gap: 40px;
     }
 
     .container-2 {
         display: flex;
         flex-direction: column;
-        gap: 50px;
         align-items: center;
-        justify-content: center;
+        gap: 20px;
         height: 100%;
     }
 
@@ -105,21 +117,25 @@
         display: flex;
         justify-content: space-evenly;
         flex-direction: row;
-        gap: 90px;
+        gap: 50px;
     }
 
     .acct-form {
         display: flex;
         background-color: #443C68;
-        height: 600px;
-        width: 1000px;
+        height: 500px;
+        width: 700px;
         border-radius: 5px;
     }
 
     .tran-form {
         display: flex;
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
         background-color: #635985;
-        height: 600px;
+        height: 500px;
         width: 600px;
         border-radius: 5px;
     }
@@ -148,7 +164,8 @@
     .btn-group {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 20px;
+        overflow: scroll;
     }
 
     .btn-group button {
@@ -157,11 +174,10 @@
         border: none;
         color: white;
         text-align: center;
-        padding: 10px 24px;
         cursor: pointer;
         border-radius: 5px;
-        heigh: 50px;
-        width: 100%;
+        height: 50px;
+        width: 200px;
         display: block;
     }
 

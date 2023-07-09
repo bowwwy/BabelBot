@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
-<body style = "background-color: #18122B;">
+<body style = "background-color: #18122B; overflow: scroll">
 
 <ul>
     <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
@@ -29,11 +29,11 @@
                 placeholder="Enter Password" name="password" required>
                 <input class="c-password" type="password" 
                 placeholder="Confirm Password" name="confirm password" required>
-                <div class="container-2">
-                    <p class="c-account">By creating an account you agree to our <span class="t-priv">Terms & Privacy</span>.</p>
-                </div>
-                <button class="button-style" type="submit">Submit</button>
             </div>
+            <div>
+                    <p class="c-account">By creating an account you agree to our <span class="t-priv">Terms & Privacy</span>.</p>
+            </div>
+                <button class="button-style" type="submit">Submit</button>
         </form>
     </div>
     {%if error%}
@@ -42,19 +42,22 @@
 </body>
 <style>
 
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+
       .button-style {
         background-color: #2A2A2C;
         color: #FFF;
         font-family: Inter;
         border: none;
-        padding: 10px 70px;
-        text-align: center;
+        height: 40px;
+        width: 150px;
         border-radius: 5px;
-        margin: 10px 150px;
     }
 
     .c-account, .t-priv {
-        margin: 10px 0px;
         font-family: 'Inter';
         font-size: 12px;
     }
@@ -63,15 +66,12 @@
         color: #BEAECA;
     }
 
-    .username, .c-password {
-        margin: 20px 0px;
-    }
-
     .username, .password, .c-password, .email {
         background-color: #443C68;
         color: white;
         text-align: center;
-        padding: 10px 150px;
+        height: 40px;
+        width: 80%;
         border-radius: 5px;
         border: none;
     }
@@ -81,26 +81,27 @@
     }
 
     .container {
-        justify-content: center;
-        margin: 100px 100px;
-    }
-
-    .container-2 {
-        display: in-line block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 
     .register-form {
         background-color: #635985;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 700px;
         height: 500px;
         border-radius: 25px;
+        gap: 30px;
     }
 
     .center-form {
-        justify-content: center;
         display: flex;
-        margin: 40px 50px;
+        justify-content: center;
     }
 
     ul {

@@ -15,7 +15,7 @@
 
     <title>Home</title>
 </head>
-<body style = "background-color: #18122B;">
+<body style = "background-color: #18122B; overflow: scroll;">
 {%if logged_in%}
 <ul>
     <li style = "font-size: 20px"><a href="{{url_for('translate')}}">Translate</a></li>
@@ -37,14 +37,16 @@
     <p class = "directions">and natural-sounding translations possible. </p>
     </div>  
 
-
-
 <!-- Modal -->
-
 
 </body>
 
 <style>
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 
     .text-style {
         color: white;
@@ -69,69 +71,6 @@
         padding: 10px 50px;
         text-align: center;
         border-radius: 5px;
-    }
-
-    .d-account {
-        font-family: 'Inter';
-        font-size: 12px;
-    }
-
-    .f-pass, .c-here {
-        color: #BEAECA;
-        font-family: 'Inter';
-        font-size: 12px;
-    }
-
-    .username, .password {
-        padding: 10px 150px;
-    }
-
-    .email {
-        width: 100%;
-        padding: 10px 0px;
-    }
-
-    .username, .password, .email {
-        background-color: #443C68;
-        color: white;
-        text-align: center;
-        border-radius: 5px;
-        border: none;
-    }
-
-    ::placeholder {
-        color: #D3D3D3;
-    }
-
-    .login-form {
-        background-color: #635985;
-        width: 700px;
-        height: 500px;
-        border-radius: 25px;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .center-form, .login-form {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-
-    .container-2 {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        gap: 15px;
     }
 
     ul {

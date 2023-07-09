@@ -128,7 +128,6 @@ def translate():
     logged_in = islogged_in()
     return render_template('translate.html', logged_in = logged_in)
 
-
 @app.route('/translator', methods=['GET', 'POST'])
 def translator():
     logged_in = islogged_in()   
