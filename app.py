@@ -72,7 +72,7 @@ def login():
             session['pass'] = password
             return redirect(url_for('home'))
         except:
-            error = "Invalid email or Password"        
+            error = "Invalid Email or Password"
             return render_template('login.html', error = error)
             
 
@@ -88,7 +88,7 @@ def register():
 
         
         if not username:
-            error = "please fill in all the required fields."
+            error = "Please fill in all the required fields."
             return render_template('register.html', error = error)         
         email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 

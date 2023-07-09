@@ -59,16 +59,17 @@
       <div class="modal-footer">
           <button type="button" class="button-style" data-dismiss="modal">Close</button>
           <button type="submit" class="button-style">Submit</button>
-        </form>
+      </form>
       </div>
-      
-    </div>  
-    
+    </div>
   </div>
 </div>
-{%if error%}
-<div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
-{%endif%}
+
+    <div>
+        {%if error%}
+        <div id="errorMsg" class="alert alert-danger" role="alert">{{error}}</div>
+        {%endif%}
+    </div>
 
 <div>
     <div class="wave"></div>
